@@ -1,0 +1,20 @@
+defaults: &defaults
+  evernote:
+    host:
+    username:
+    password:
+    consumer_key:
+    consumer_secret:
+    authToken:
+
+  sharedNotebook:
+    shareKey:
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
