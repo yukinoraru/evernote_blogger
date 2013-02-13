@@ -1,5 +1,5 @@
 EvernoteBlogger::Application.routes.draw do
-  get "entry/index"
+  resources :entry, :only => [:index, :show]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
