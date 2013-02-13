@@ -13,7 +13,10 @@ namespace :en_spider do
       #resources    = es.get_note_resources(note, authToken)
       #tags         = es.get_note_tags(note, authToken)
       #xml_content  = es.get_note_xml(note, authToken)
-      Entry.create(:title => note.title)
+      entry = Entry.new
+      entry.title = note.title
+      entry.original_created_at = Time.at(note.created.to_i / 1000)
+      entry.save
     end
   end
 end
