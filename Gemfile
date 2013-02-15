@@ -38,6 +38,7 @@ group :test, :development do
 end
 
 gem 'settingslogic'
+gem 'thrift'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
