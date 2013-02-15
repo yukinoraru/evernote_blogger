@@ -1,4 +1,3 @@
-require "pp"
 require "evernote_spider.rb"
 
 namespace :en_spider do
@@ -10,13 +9,16 @@ namespace :en_spider do
     note_list = es.get_note_list(notebook, authToken)
 
     note_list.notes.each do |note|
-      #resources    = es.get_note_resources(note, authToken)
       #tags         = es.get_note_tags(note, authToken)
       entry = Entry.new
       entry.title = note.title
       entry.original_created_at = Time.at(note.created.to_i / 1000)
       entry.content = es.get_note_xml(note, authToken)
       entry.save
+
+      es.get_note_resources(note, authToken).each do |r|
+        entry.resources << Resource.create_from_en_spider_resource(r)
+      end
     end
   end
 end
