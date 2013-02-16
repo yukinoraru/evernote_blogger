@@ -11,4 +11,4 @@
   rake en_spider:get
   rails s
 
-and access "localhost:3000/entry"
+and access "localhost:3000"
