@@ -17,28 +17,15 @@
   </xsl:template>
 
   <xsl:template match="en-media">
-    <xsl:choose>
-      <xsl:when test="contains(@type, 'image/png')">
-        <img>
-          <xsl:attribute name="class">attach_img</xsl:attribute>
-          <xsl:attribute name="src">
-            <xsl:value-of select="concat('/images/', @hash, '.png')" />
-          </xsl:attribute>
-        </img>
-      </xsl:when>
-      <xsl:when test="contains(@type, 'image/jpeg')">
-        <img>
-          <xsl:attribute name="class">attach_img</xsl:attribute>
-          <xsl:attribute name="src">
-            <xsl:value-of select="concat('/images/', @hash, '.jpg')" />
-          </xsl:attribute>
-        </img>
-      </xsl:when>
-      <xsl:otherwise>
-        Unknown media: 
+    <div class="resource">
+      <xsl:attribute name="data-hash">
+        <xsl:value-of select="@hash" />
+      </xsl:attribute>
+      <xsl:attribute name="data-type">
         <xsl:value-of select="@type" />
-      </xsl:otherwise>
-    </xsl:choose>
+      </xsl:attribute>
+      <span></span>
+    </div>
   </xsl:template>
 
   <xsl:template match="* | @* | text()">

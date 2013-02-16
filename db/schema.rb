@@ -23,13 +23,13 @@ ActiveRecord::Schema.define(:version => 20130215010000) do
 
   create_table "resources", :force => true do |t|
     t.string   "filename"
-    t.binary   "body"
+    t.binary   "body",       :limit => 16777215
     t.string   "extension"
     t.string   "mime"
     t.string   "body_hash"
     t.integer  "entry_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
 end
