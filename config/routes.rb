@@ -1,4 +1,5 @@
 EvernoteBlogger::Application.routes.draw do
+  root :to => 'entry#index'
   resources :entry, :only => [:index, :show]
   match 'resource/:hash' => 'resource#show', :as => 'resource'
   match 'resource/get_elem/:hash' => 'resource#get_elem'
