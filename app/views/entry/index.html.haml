@@ -1,3 +1,6 @@
+%h2 記事一覧
+
 %ul
 - @entries.each do |e|
+  %h2= e.original_created_at
   %li= link_to e.title, e
