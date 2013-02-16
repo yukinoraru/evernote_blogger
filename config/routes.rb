@@ -1,6 +1,7 @@
 EvernoteBlogger::Application.routes.draw do
   resources :entry, :only => [:index, :show]
-  resources :resource, :only => [:show]
+  match 'resource/:hash' => 'resource#show', :as => 'resource'
+  match 'resource/get_elem/:hash' => 'resource#get_elem'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,5 @@
+- case @resource.mime
+- when "image/png", "image/jpeg", "image/jpg"
+  = image_tag resource_path(@resource.body_hash)
+- else
+  = link_to @resource.filename, resource_path(@resource.body_hash)

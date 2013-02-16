@@ -35,6 +35,7 @@ class EvernoteSpider
   # XSLT使ってXMLに変換している
   def get_note_xml(note, authToken)
     raw_content = get_note_store.getNoteContent(authToken, note.guid)
+    File.write("hoge.xml", raw_content)
     return @note2blog.transform(Nokogiri::XML(raw_content)).to_s
   end
 
@@ -51,16 +52,6 @@ class EvernoteSpider
 
         hash = data.data.bodyHash.unpack('H*').first
 
-        # MIMEタイプを検出
-        mime = case data.mime
-        when 'image/png'
-          'png'
-        when 'image/jpeg'
-          'jpg'
-        else
-          nil
-        end
-
         extension = File.extname(data.attributes.fileName)
         body = data.data.body
 
@@ -68,7 +59,7 @@ class EvernoteSpider
           "filename" => data.attributes.fileName,
           "body" => body,
           "extension" => extension,
-          "mime" => mime,
+          "mime" => data.mime,
           "hash" => hash,
         }
       end
