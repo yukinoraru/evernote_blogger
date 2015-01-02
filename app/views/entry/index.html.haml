@@ -1,6 +1,9 @@
 %h2 記事一覧
 
 %ul
-- @entries.each do |e|
-  %h2= e.original_created_at
-  %li= link_to e.title, e
+- @entries.each do |entry|
+  %ul
+    %li
+      = link_to entry.title, entry
+      = "作成日:" + entry.original_created_at.to_s
+      = ", 更新日:" + entry.original_updated_at.to_s

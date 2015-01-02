@@ -1,3 +1,7 @@
-%h1= @entry.title
-%h2= @entry.original_created_at
-=raw @entry.content
+%h2= @entry.title
+%div
+  = "作成日:" + @entry.original_created_at.to_s
+  = ", 更新日:" + @entry.original_updated_at.to_s
+%br
+%div.body
+  =raw @entry.content

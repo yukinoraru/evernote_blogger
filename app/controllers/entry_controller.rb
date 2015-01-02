@@ -5,8 +5,5 @@ class EntryController < ApplicationController
 
   def show
     @entry = Entry.find(params[:id])
-
-    @entry.content = @entry.content.gsub("/images/", "/resource/")
-
   end
 end
