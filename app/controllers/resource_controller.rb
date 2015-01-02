@@ -3,10 +3,12 @@ class ResourceController < ApplicationController
 
   def show
     @resource = Resource.find_by_body_hash(params[:hash])
+
     disposition = 'attachment'
     type = @resource.mime
+
     case @resource.mime
-    when "image/png", "image/jpg", "image/jpeg"
+    when "image/png", "image/jpg", "image/jpeg", "png", "jpg"
       disposition = 'inline'
     end
 
