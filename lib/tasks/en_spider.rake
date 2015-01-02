@@ -11,14 +11,29 @@ namespace :en_spider do
 
     note_list.notes.each do |note|
 
-      entry                     = Entry.new
-      entry.title               = note.title
-      entry.original_created_at = Time.at(note.created.to_i / 1000)
-      entry.content             = es.get_note_xml(note, authToken)
-      entry.save
+      entry = Entry.find_by_guid(note.guid)
+      entry = Entry.new if entry.nil?
 
-      es.get_note_resources(note, authToken).each do |r|
-        entry.resources << Resource.create_from_en_spider_resource(r)
+      if entry.update_sequence_num == note.updateSequenceNum
+        puts "[S][#{entry.update_sequence_num}]#{entry.guid}: '#{entry.title}'"
+      else
+
+        entry.guid                = note.guid
+        entry.title               = note.title
+        entry.original_updated_at = Time.at(note.updated.to_i / 1000)
+        entry.original_created_at = Time.at(note.created.to_i / 1000)
+        entry.update_sequence_num = note.updateSequenceNum
+        entry.content             = es.get_note_xml(note, authToken)
+
+        entry.save
+
+        puts "[U][#{entry.update_sequence_num}]#{entry.guid}: '#{entry.title}'"
+      end
+
+      #
+      es.get_note_resources(note, authToken).each do |resource|
+        tmp = Resource.create_from_en_spider_resource(resource)
+        entry.resources << tmp unless tmp.nil?
       end
 
       # TODO:

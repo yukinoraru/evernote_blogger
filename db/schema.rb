@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215010000) do
+ActiveRecord::Schema.define(:version => 20150102183217) do
 
   create_table "entries", :force => true do |t|
     t.string   "title"
@@ -19,17 +19,24 @@ ActiveRecord::Schema.define(:version => 20130215010000) do
     t.datetime "updated_at",          :null => false
     t.datetime "original_created_at"
     t.text     "content"
+    t.string   "guid"
+    t.integer  "update_sequence_num"
+    t.datetime "original_updated_at"
   end
 
   create_table "resources", :force => true do |t|
     t.string   "filename"
-    t.binary   "body",       :limit => 16777215
+    t.binary   "body",                :limit => 16777215
     t.string   "extension"
     t.string   "mime"
     t.string   "body_hash"
     t.integer  "entry_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.string   "guid"
+    t.integer  "update_sequence_num"
+    t.integer  "width"
+    t.integer  "height"
   end
 
 end
