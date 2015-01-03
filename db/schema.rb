@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150102183217) do
+ActiveRecord::Schema.define(:version => 20150103071738) do
 
   create_table "entries", :force => true do |t|
     t.string   "title"
@@ -38,5 +38,16 @@ ActiveRecord::Schema.define(:version => 20150102183217) do
     t.integer  "width"
     t.integer  "height"
   end
+
+  create_table "tags", :force => true do |t|
+    t.string   "guid"
+    t.string   "name"
+    t.integer  "update_sequence_num"
+    t.integer  "entry_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "tags", ["entry_id"], :name => "index_tags_on_entry_id"
 
 end

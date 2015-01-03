@@ -9,35 +9,27 @@ namespace :en_spider do
     notebook, authToken = es.get_shared_notebook(shareKey)
     note_list           = es.get_note_list(notebook, authToken)
 
+    # タグの処理
+    es.get_all_notebook_tags(notebook, authToken).each do |tag|
+      Tag.create_from_en_tag(tag)
+    end
+
+    # ブログエントリ
     note_list.notes.each do |note|
 
-      entry = Entry.find_by_guid(note.guid)
-      entry = Entry.new if entry.nil?
+      entry = Entry.create_from_note(note, es.get_note_xml(note, authToken))
 
-      if entry.update_sequence_num == note.updateSequenceNum
-        puts "[S][#{entry.update_sequence_num}]#{entry.guid}: '#{entry.title}'"
-      else
-
-        entry.guid                = note.guid
-        entry.title               = note.title
-        entry.original_updated_at = Time.at(note.updated.to_i / 1000)
-        entry.original_created_at = Time.at(note.created.to_i / 1000)
-        entry.update_sequence_num = note.updateSequenceNum
-        entry.content             = es.get_note_xml(note, authToken)
-
-        entry.save
-
-        puts "[U][#{entry.update_sequence_num}]#{entry.guid}: '#{entry.title}'"
-      end
-
-      #
+      # エントリについているリソースの処理
       es.get_note_resources(note, authToken).each do |resource|
         tmp = Resource.create_from_en_spider_resource(resource)
         entry.resources << tmp unless tmp.nil?
       end
 
-      # TODO:
-      # tags = es.get_note_tags(note, authToken)
+      tag_guids = note.tagGuids || []
+      tag_guids.each do |guid|
+        tag = Tag.find_by_guid(guid)
+        entry.tags << tag unless entry.nil?
+      end
 
     end
   end

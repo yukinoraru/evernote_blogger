@@ -37,8 +37,8 @@ class EvernoteSpider
   end
 
   # ノートのタグを返却
-  def get_note_tags(note, auth_token)
-    return get_note_store.getNoteTagNames(auth_token, note.guid)
+  def get_all_notebook_tags(notebook, auth_token)
+    return get_note_store.listTagsByNotebook(auth_token, notebook.notebookGuid)
   end
 
   # ノートに添付されたやつをハッシュの配列形式で返却

@@ -4,18 +4,6 @@
     <xsl:apply-templates/>
   </xsl:template>
 
-  <xsl:template match="div">
-    <p>
-      <xsl:apply-templates/>
-    </p>
-  </xsl:template>
-
-  <xsl:template match="br">
-    <p>
-      <xsl:apply-templates/>
-    </p>
-  </xsl:template>
-
   <xsl:template match="en-media">
     <xsl:choose>
       <xsl:when test="contains(@type, 'image/png')">
@@ -36,7 +24,7 @@
             <xsl:value-of select="@width" />
           </xsl:attribute>
           <xsl:attribute name="height">
-            <xsl:value-of select="@height" />
+            <xsl:value-of select="@width" />
           </xsl:attribute>
         </img>
       </xsl:when>

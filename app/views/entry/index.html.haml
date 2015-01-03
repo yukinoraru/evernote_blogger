@@ -7,3 +7,5 @@
       = link_to entry.title, entry
       = "作成日:" + entry.original_created_at.to_s
       = ", 更新日:" + entry.original_updated_at.to_s
+
+      = "[" + entry.tags.inject(""){|str,t| str += t.name + ", " } + "]"

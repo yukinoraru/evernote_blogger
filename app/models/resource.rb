@@ -14,7 +14,7 @@ class Resource < ActiveRecord::Base
     resource = Resource.find_by_guid(raw.guid)
 
     if !resource.nil? && resource.update_sequence_num == raw.updateSequenceNum
-      puts "\t[S][#{raw.updateSequenceNum}] #{raw.guid}: #{en_resource[:filename]}"
+      puts "\t[S][Res][#{raw.updateSequenceNum}] #{raw.guid}: #{en_resource[:filename]}"
       return nil
     end
 
@@ -31,7 +31,7 @@ class Resource < ActiveRecord::Base
     resource.update_sequence_num = raw.updateSequenceNum
 
     resource.save
-    puts "\t[U][#{raw.updateSequenceNum}] #{raw.guid}: #{en_resource[:filename]}"
+    puts "\t[U][Res][#{raw.updateSequenceNum}] #{raw.guid}: #{en_resource[:filename]}"
 
     return resource
   end
