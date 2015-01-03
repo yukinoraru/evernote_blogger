@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rack/dev-mark'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -8,6 +9,10 @@ Bundler.require(*Rails.groups)
 
 module EvernoteBlogger
   class Application < Rails::Application
+    # Enable rack-dev-mark
+    config.rack_dev_mark.enable = !Rails.env.production?
+    config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right')]
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -33,10 +38,6 @@ module EvernoteBlogger
 
     # Enable the asset pipeline
     config.assets.enabled = true
-
-    #
-    config.rack_dev_mark.enable = !Rails.env.production?
-    config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'right')]
 
   end
 end
