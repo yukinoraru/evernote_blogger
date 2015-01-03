@@ -1,6 +1,18 @@
+# == Schema Information
+#
+# Table name: tags
+#
+#  id                  :integer          not null, primary key
+#  guid                :string(255)
+#  name                :string(255)
+#  update_sequence_num :integer
+#  entry_id            :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
 class Tag < ActiveRecord::Base
   belongs_to :entry
-  attr_accessible :guid, :name, :update_sequence_num
 
   def self.create_from_en_tag(en_tag)
     tag = Tag.find_by_guid(en_tag.guid)

@@ -1,57 +1,67 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+group :default do
+  gem 'rails'
+  gem 'sass-rails'
+  gem 'uglifier'
+  gem 'coffee-rails'
+  gem 'haml-rails'
+  gem 'jquery-rails'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'mysql2'
-
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier', '>= 1.0.3'
+  gem 'mysql2'
+  gem 'settingslogic'
+  gem 'thrift'
+  gem 'evernote_oauth'
 end
-
-gem 'jquery-rails'
-gem 'haml-rails'
-gem 'coffee-filter'
-gem 'libv8', :platforms => :ruby
-gem 'therubyracer', '~> 0.10.2'
 
 group :test, :development do
-  gem 'rspec-rails'
-  gem 'spork', '~> 0.9.0.rc'
-  gem 'guard-spork'
-  gem 'guard-rspec'
-  gem 'factory_girl_rails'
-  gem 'capistrano'
-  gem 'rails-erd'
-  gem 'capybara'
+  # gem 'sqlite3'
 end
 
-gem 'settingslogic'
-gem 'thrift', '0.9.2'
-gem 'evernote_oauth'
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-spring'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+  gem 'rack-mini-profiler'
+  gem 'bullet'
+  gem 'quiet_assets'
+  gem 'rails_best_practices'
+  gem 'did_you_mean'
 
-# To use debugger
-# gem 'debugger'
+  gem 'hirb'
+  gem 'hirb-unicode'
+
+  gem 'annotate'
+
+  gem 'tapp'
+  gem 'xray-rails'
+
+  gem 'rack-dev-mark'
+
+end
+
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_rewinder'
+  gem 'rspec-request_describer'
+  gem 'autodoc'
+  gem 'json_spec'
+end
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', '~> 0.4.0'
+end
