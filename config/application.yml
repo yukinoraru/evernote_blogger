@@ -1,14 +1,13 @@
 defaults: &defaults
   evernote:
-    host:
-    username:
-    password:
-    consumer_key:
-    consumer_secret:
-    authToken:
+     access_token:
+     consumer_key:
+     consumer_secret:
+     sandbox: true
 
-  sharedNotebook:
-    shareKey:
+     shared_notebooks:
+       - comment:
+         share_key:
 
 development:
   <<: *defaults
