@@ -8,14 +8,13 @@ group :default do
   gem 'haml-rails'
   gem 'jquery-rails'
 
-  gem 'mysql2'
   gem 'settingslogic'
   gem 'thrift'
   gem 'evernote_oauth'
 end
 
 group :test, :development do
-  # gem 'sqlite3'
+  gem 'sqlite3'
 end
 
 group :development do
@@ -27,9 +26,10 @@ group :development do
   gem 'pry-stack_explorer'
   gem 'pry-byebug'
 
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-spring'
+  gem 'guard', platforms: :mingw, require: false
+  gem 'guard-rspec', platforms: :mingw, require: false
+  gem 'guard-spring', platforms: :mingw, require: false
+  gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -38,7 +38,7 @@ group :development do
   gem 'bullet'
   gem 'quiet_assets'
   gem 'rails_best_practices'
-  gem 'did_you_mean'
+  #gem 'did_you_mean'
 
   gem 'hirb'
   gem 'hirb-unicode'
@@ -59,6 +59,10 @@ group :test do
   gem 'rspec-request_describer'
   gem 'autodoc'
   gem 'json_spec'
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 group :doc do

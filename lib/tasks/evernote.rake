@@ -5,6 +5,10 @@ namespace :evernote do
   desc "retrieve entry/resource/tag from evernote and store to db"
   task :update => :environment do
 
+    #related to unknown error: "OpenSSL::SSL::SSLError SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: "
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE    #TODO: remove unsecure code
+
+    #TODO: host for production env
     es                  = EvernoteSpider.new(Settings.evernote.access_token)
     shareKey            = Settings.evernote.shared_notebooks.first["share_key"]
     notebook, authToken = es.get_shared_notebook(shareKey)
@@ -51,9 +55,15 @@ namespace :evernote do
 
       #
       request_token = client.request_token(:oauth_callback => "http://127.0.0.1:9999/")
+      authorize_url = request_token.authorize_url
 
       #
-      system('open', request_token.authorize_url)
+      if Gem.win_platform?
+        system('start', authorize_url)
+      else
+        # require OSX, not linux
+        system('open', authorize_url)
+      end
 
       # Create callback web app and get access token.
       app = Proc.new do |env|
@@ -89,7 +99,8 @@ namespace :evernote do
       handler = Rack::Handler::WEBrick
 
       # run WEBrick with silent mode
-      handler.run(app, :Port => 9999, :Logger => WEBrick::Log.new("/dev/null"), AccessLog: [])
+      # nil means $stderr
+      handler.run(app, :Port => 9999, :Logger => WEBrick::Log.new(nil), AccessLog: [])
 
     rescue => e
       puts "Error obtaining temporary credentials: #{e.message}"
